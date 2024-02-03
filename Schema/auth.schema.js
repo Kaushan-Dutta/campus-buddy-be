@@ -84,6 +84,7 @@ const LoginQuery = {
     if (getUser) {
       if (getUser.password == args.password) {
          const createToken=GenerateToken({_id:getUser._id,email:getUser.email,phone:getUser.phone,entity:getUser.entity,collegeId:getUser.collegeId});
+         console.log(createToken);
          return {accessToken:createToken}
       }
     }
