@@ -10,7 +10,7 @@ require('dotenv').config();
 app.use(express.static('public'));
 app.use(
   cors({
-    origin: 'https://campus-buddy-f5pyl4w8s-kaushan-dutta.vercel.app',
+    origin: true,
     credentials: true,
   })
 );
