@@ -7,6 +7,7 @@ const { graphqlHTTP } = require('express-graphql');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
+  origin:true,
   cors: true,
 });
 require('dotenv').config();
