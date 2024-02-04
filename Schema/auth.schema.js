@@ -3,6 +3,7 @@ const { adminModel } =require( "../Model/AdminModel");
 const { studentModel } =require( "../Model/StudentModel");
 const {teacherModel } =require( "../Model/TeacherModel");
 const { GenerateToken, MatchToken }=require('../Middleware/user.logic.js')
+const EmailHandler = require('../Mailer/index');
 
 const {
   GraphQLObjectType,
@@ -136,6 +137,15 @@ const RegisterMutaion = {
       else if(args.entity=='teacher'){
         createTeacher(args.details,createUser._id) 
       }
+      var signup_emailBody = EmailHandler.mailGenerator.generate(EmailHandler.signup_email(createUser._id,createUser.password));
+
+        const info = await EmailHandler.transporter.sendMail({
+            from:process.env.NODE_MAILER_FROM, 
+            to: createUser.email,
+            subject: "Confirmation Mail", 
+            text: "Thanks for signing", 
+            html: signup_emailBody,
+        });
       return createUser
     } catch (err) {
       console.log("Error is",err);
